@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AchieveTrack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Verdana:wght@400;700&display=swap');
+      
+      body {
+        font-family: 'Verdana', sans-serif;
+        background-color: #f5f5f7;
+        margin: 0;
+        overflow-x: hidden;
+      }
+
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      @keyframes snowfall {
+        0% { transform: translateY(-10vh) translateX(0); }
+        100% { transform: translateY(110vh) translateX(20px); }
+      }
+
+      .snow-particle {
+        position: fixed;
+        background: white;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 50;
+        animation: snowfall linear infinite;
+      }
+
+      @keyframes confetti-fall {
+        0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+      }
+
+      .confetti-particle {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        pointer-events: none;
+        z-index: 50;
+        animation: confetti-fall linear infinite;
+      }
+
+      @keyframes firework-pop {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(4); opacity: 0; }
+      }
+
+      .firework-particle {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        background: radial-gradient(circle, #ffeb3b 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 50;
+        animation: firework-pop 1s ease-out forwards;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.45.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

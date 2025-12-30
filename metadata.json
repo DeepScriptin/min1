@@ -1,0 +1,7 @@
+{
+  "name": "AchieveTrack Login & Content Manager",
+  "description": "A modern, Apple-inspired login portal with a dynamic administrative content scheduler, featuring daily rotating motivational content, festive visual effects, and CSV import capabilities.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
