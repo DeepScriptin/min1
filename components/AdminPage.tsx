@@ -371,8 +371,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ user, onLogout, content, r
         </div>
       </main>
 
-      <footer className="p-10 text-center text-[9px] font-bold text-gray-300 uppercase tracking-[0.4em]">
-        AchieveTrack System • Secure Admin Dashboard
+      <footer className="p-10 text-center">
+        <p className="text-[9px] text-gray-300 font-bold uppercase tracking-[0.4em] mb-2">
+          AchieveTrack System • Secure Admin Dashboard
+        </p>
+        <p className="text-[8px] text-gray-300 font-medium tracking-[0.1em]">
+          © 2024 <a href="https://envisageit.co.in" className="hover:text-blue-500 transition-colors">envisageit.co.in</a> • All rights reserved.
+        </p>
       </footer>
     </div>
   );

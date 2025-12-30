@@ -4,11 +4,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>AchieveTrack</title>
+    <title>AchieveTrack | Scholar Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+      
       body {
-        font-family: 'Verdana', sans-serif;
+        font-family: 'Inter', sans-serif;
         background-color: #f5f5f7;
         margin: 0;
         overflow-x: hidden;
@@ -16,15 +18,15 @@
       }
 
       .glass {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
       }
 
       @keyframes snowfall {
         0% { transform: translateY(-10vh) translateX(0); }
-        100% { transform: translateY(110vh) translateX(20px); }
+        100% { transform: translateY(110vh) translateX(25px); }
       }
 
       .snow-particle {
@@ -34,60 +36,44 @@
         pointer-events: none;
         z-index: 50;
         animation: snowfall linear infinite;
-      }
-
-      @keyframes confetti-fall {
-        0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-      }
-
-      .confetti-particle {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        pointer-events: none;
-        z-index: 50;
-        animation: confetti-fall linear infinite;
-      }
-
-      @keyframes firework-pop {
-        0% { transform: scale(0); opacity: 1; }
-        100% { transform: scale(4); opacity: 0; }
-      }
-
-      .firework-particle {
-        position: fixed;
-        width: 40px;
-        height: 40px;
-        background: radial-gradient(circle, #ffeb3b 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 50;
-        animation: firework-pop 1s ease-out forwards;
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
+        filter: blur(1px);
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
+        from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 10px;
       }
     </style>
     <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@18.2.0",
-        "react/": "https://esm.sh/react@18.2.0/",
-        "react-dom": "https://esm.sh/react-dom@18.2.0",
-        "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-        "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-        "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react",
-        "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.7"
-      }
-    }
-    </script>
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2.39.7",
+    "@google/genai": "https://esm.sh/@google/genai@0.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
   </head>
   <body>
     <div id="root"></div>
