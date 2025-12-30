@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { EffectType } from '../types';
+import { EffectType } from '../types.ts';
 
 interface EffectOverlayProps {
   type: EffectType;

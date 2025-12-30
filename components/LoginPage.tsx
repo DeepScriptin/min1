@@ -1,9 +1,9 @@
 
 import React, { useState, useMemo } from 'react';
-import { ContentItem, EffectType } from '../types';
-import { formatDate, parseDateString } from '../constants';
-import { EffectOverlay } from './EffectOverlay';
-import { Mail, Lock, Eye, EyeOff, ChevronRight } from 'lucide-react';
+import { ContentItem, EffectType } from '../types.ts';
+import { formatDate, parseDateString } from '../constants.ts';
+import { EffectOverlay } from './EffectOverlay.tsx';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 interface LoginPageProps {
   onLogin: (username: string) => void;
@@ -16,13 +16,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const todayContent = useMemo(() => {
+    if (!content.length) return null;
     const today = new Date();
     const todayStr = formatDate(today);
     
-    // Find exact match for today
     let matched = content.find(c => c.date === todayStr);
     
-    // Error checking: If no text [today], display the past latest text (Not future).
     if (!matched) {
       const pastItems = content
         .map(item => ({ item, date: parseDateString(item.date) }))
@@ -34,14 +33,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
 
     if (!matched) return null;
 
-    // Requirement: Show the question text is randomly displayed (round robin from 1-3).
-    // We use a combination of texts available
     const texts = [matched.text1, matched.text2, matched.text3].filter(t => t && t.trim() !== '');
+    if (texts.length === 0) return { ...matched, activeText: "Believe in your journey." };
     
-    if (texts.length === 0) return { ...matched, activeText: "No question available today." };
-    
-    // Random selection (Round Robin simulation)
-    // To make it feel like round robin but dynamic, we can pick a random index
     const randomIndex = Math.floor(Math.random() * texts.length);
     const activeText = texts[randomIndex];
     
@@ -59,7 +53,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
     <div className="relative min-h-screen bg-white flex flex-col items-center pt-12 px-4 overflow-hidden">
       {todayContent && <EffectOverlay type={todayContent.effect as EffectType} />}
       
-      {/* Top Question Section */}
       <div className="w-full max-w-2xl text-center mb-16 animate-fade-in relative z-10">
         <h2 className="text-[10px] font-bold text-gray-900 uppercase tracking-[0.2em] mb-6">
           QUESTION OF THE DAY
@@ -71,7 +64,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
               <img 
                 src={todayContent.icon} 
                 alt="Icon" 
-                className="w-12 h-12 mr-4 mt-2 object-contain rounded-lg"
+                className="w-12 h-12 mr-4 mt-2 object-contain rounded-lg shadow-sm"
               />
             )}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight max-w-xl">
@@ -80,25 +73,22 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
           </div>
           
           <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 font-medium">
-            <span>1,328 learners are asking questions right now</span>
+            <span>Join 1,328 learners growing today</span>
             <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
           </div>
         </div>
       </div>
 
-      {/* Login Card */}
-      <div className="w-full max-w-[560px] bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 p-10 md:p-14 relative z-10">
+      <div className="w-full max-w-[560px] bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-gray-100 p-10 md:p-14 relative z-10 mb-8">
         <div className="text-center mb-10">
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h3>
-          <p className="text-gray-500 text-sm">Continue your progress and grow your mind.</p>
+          <p className="text-gray-500 text-sm font-medium">Continue your path to excellence.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="space-y-6">
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-900 px-1">
-                Student Email
-              </label>
+              <label className="block text-sm font-bold text-gray-900 px-1">Student Email</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
@@ -108,15 +98,13 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="name@school.edu"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-400/50 transition-all text-gray-700 placeholder:text-gray-300"
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-400/50 transition-all text-gray-700"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-bold text-gray-900 px-1">
-                Password
-              </label>
+              <label className="block text-sm font-bold text-gray-900 px-1">Password</label>
               <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
@@ -126,7 +114,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-12 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-400/50 transition-all text-gray-700 placeholder:text-gray-300"
+                  className="w-full pl-12 pr-12 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/5 focus:border-blue-400/50 transition-all text-gray-700"
                 />
                 <button
                   type="button"
@@ -140,21 +128,21 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, content }) => {
           </div>
 
           <div className="flex justify-end">
-            <button type="button" className="text-sm font-bold text-gray-900 hover:text-blue-600 transition-colors">
+            <button type="button" className="text-xs font-bold text-gray-400 hover:text-blue-600 transition-colors uppercase tracking-widest">
               Forgot password?
             </button>
           </div>
 
           <button
             type="submit"
-            className="w-full py-5 bg-white border border-gray-100 text-gray-900 font-bold rounded-2xl shadow-sm hover:bg-gray-50 transition-all flex items-center justify-center group"
+            className="w-full py-5 bg-gray-900 text-white font-bold rounded-2xl shadow-xl shadow-gray-200 hover:bg-black transition-all transform active:scale-[0.98]"
           >
             Sign In to Journey
           </button>
         </form>
       </div>
 
-      <div className="mt-12 text-center text-[10px] text-gray-300 font-bold uppercase tracking-widest pb-8">
+      <div className="mt-auto text-center text-[10px] text-gray-300 font-bold uppercase tracking-widest pb-8">
         AchieveTrack Achievement & Scholarship Program
       </div>
     </div>
